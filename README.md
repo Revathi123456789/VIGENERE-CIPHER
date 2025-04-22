@@ -1,4 +1,6 @@
 # VIGENERE-CIPHER
+## REVATHI K
+## 212223040169
 ## EX. NO: 1(D)
  
 
@@ -29,96 +31,41 @@ STEP-7: The junction character where these two meet forms the cipher character.
 STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
-## PROGRAM
+## PROGRAM :
 ```
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
+def encrypt(text, key):
+    return ''.join(
+        chr((ord(t.upper()) - 65 + ord(key[i % len(key)].upper()) - 65) % 26 + 65)
+        for i, t in enumerate(text) if t.isalpha()
+    )
 
-void encipher();
-void decipher();
+def decrypt(text, key):
+    return ''.join(
+        chr((ord(t.upper()) - 65 - (ord(key[i % len(key)].upper()) - 65) + 26) % 26 + 65)
+        for i, t in enumerate(text) if t.isalpha()
+    )
 
-int main() {
-    int choice;
+choice = input("1. Encrypt  2. Decrypt\nEnter choice: ")
 
-    while (1) {
-        printf("\n1. Encrypt Text");
-        printf("\t2. Decrypt Text");
-        printf("\t3. Exit");
-        printf("\n\nEnter Your Choice: ");
-        scanf("%d", &choice);
+if choice == '1':
+    text = input("Enter plain text: ")
+    key = input("Enter key: ")
+    print("Cipher Text:", encrypt(text, key))
 
-        if (choice == 3) {
-            exit(0);
-        } else if (choice == 1) {
-            encipher();
-        } else if (choice == 2) {
-            decipher();
-        } else {
-            printf("Please Enter Valid Option.\n");
-        }
-    }
-
-    return 0;
-}
-
-void encipher() {
-    unsigned int i, j;
-    char input[50], key[10];
-
-    printf("\n\nEnter Plain Text: ");
-    scanf("%s", input);
-
-    printf("\nEnter Key Value: ");
-    scanf("%s", key);
-
-    printf("\nResultant Cipher Text: ");
-    
-    for (i = 0, j = 0; i < strlen(input); i++, j++) {
-        if (j >= strlen(key)) {
-            j = 0;
-        }
-        
-        printf("%c", 65 + (((toupper(input[i]) - 65) + (toupper(key[j]) - 65)) % 26));
-    }
-    
-    printf("\n");
-}
-
-void decipher() {
-    unsigned int i, j;
-    char input[50], key[50];
-    int value;
-
-    printf("\n\nEnter Cipher Text: ");
-    scanf("%s", input);
-
-    printf("\n\nEnter the Key Value: ");
-    scanf("%s", key);
-
-    printf("\nResultant Decrypted Text: ");
-
-    for (i = 0, j = 0; i < strlen(input); i++, j++) {
-        if (j >= strlen(key)) {
-            j = 0;
-        }
-
-        value = (toupper(input[i]) - 65) - (toupper(key[j]) - 65);
-
-        if (value < 0) {
-            value += 26;  // Ensure the result is positive
-        }
-
-        printf("%c", 65 + (value % 26));
-    }
-
-    printf("\n");
-}
+elif choice == '2':
+    text = input("Enter cipher text: ")
+    key = input("Enter key: ")
+    print("Plain Text:", decrypt(text, key))
+else:
+    print("Invalid choice")
 ```
 
-## OUTPUT
-![image](https://github.com/user-attachments/assets/b025e695-7c71-4333-8d62-459355cec8de)
+## OUTPUT :
+![Screenshot 2025-04-21 223036](https://github.com/user-attachments/assets/36295ba6-3b83-46f5-a455-d41f0e77653a)
 
-## RESULT
-Thus the C program for Vigenere Cipher is implemented successfully.
+![Screenshot 2025-04-21 223112](https://github.com/user-attachments/assets/efbb7c80-d63f-4ff9-a5d0-12cf961db3bd)
+
+![Screenshot 2025-04-21 223131](https://github.com/user-attachments/assets/0b37fcd7-1b85-4d6f-9e02-8f0a93cda917)
+
+## RESULT :
+Hence the given vignere cipher program executed successfully.
